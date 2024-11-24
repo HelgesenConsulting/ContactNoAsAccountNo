@@ -1,11 +1,39 @@
 {
-  "folders": [
-    {
-      "path": "App"
-    },
-    {
-      "path": ".AL-Go"
-    }
-  ],
-  "settings": {}
+	"folders": [
+		{
+			"path": "_shared"
+		},
+		{
+			"name": "APP: Contact No. as Customer No.",
+			"path": "App"
+		},
+		{
+			"path": ".AL-Go"
+		}
+	],
+	"settings": {
+		"CRS.FileNamePattern": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
+		"CRS.FileNamePatternExtensions": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
+		"CRS.FileNamePatternPageCustomizations": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
+		"CRS.RemovePrefixFromFilename": true,
+		"CRS.OnSaveAlFileAction": "Rename",
+		"al.packageCachePath": [
+			"../_shared/.alpackages"
+		],
+		"al.codeAnalyzers": [
+			"${CodeCop}",
+			"${UICop}",
+			"${PerTenantExtensionCop}",
+			"${analyzerFolder}BusinessCentral.LinterCop.dll"
+		],
+		"al.enableCodeAnalysis": true,
+		"al.enableCodeActions": true,
+		"al.ruleSetPath": "../_shared/BeginEfficient.ruleset.json",
+		"editor.formatOnSave": true,
+		"cSpell.words": [
+			"CNTHLG",
+			"Helgesen",
+			"Payables"
+		]
+	}
 }

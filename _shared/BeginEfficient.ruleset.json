@@ -1,0 +1,11 @@
+{
+    "name": "Being Efficient",
+    "description": "Being Efficient",
+    "rules": [
+        {
+            "id": "AA0215",
+            "action": "Hidden",
+            "justification": "Maybe this rule is disagreeable."
+        }
+    ]
+}
