@@ -25,11 +25,13 @@ codeunit 73301 "Vend-Init No. from Cont CNTHLG"
         MarketingSetup: Record "Marketing Setup";
 
     begin
+        PurchSetup.SetLoadFields("Vendor Nos.");
         if not PurchSetup.Get() then
             exit(false);
         if PurchSetup."Vendor Nos." = '' then
             exit(false);
 
+        MarketingSetup.SetLoadFields("Contact Nos.");
         if not MarketingSetup.Get() then
             exit(false);
         if MarketingSetup."Contact Nos." = '' then

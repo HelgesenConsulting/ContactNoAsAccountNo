@@ -1,9 +1,9 @@
 {
   "id": "37e796a5-9fc4-489c-8fca-1695590dc63b",
-  "name": "Contact No. as Customer No.",
+  "name": "Contact No. as Account No.",
   "publisher": "Helgesen Consulting, Inc.",
   "version": "1.0.0.0",
-  "brief": "",
+  "brief": "Keep the Contact `No.` as the `No.` for Customer and Vendors",
   "description": "",
   "privacyStatement": "",
   "EULA": "",
@@ -25,7 +25,7 @@
   ],
   "resourceExposurePolicy": {
     "allowDebugging": true,
-    "allowDownloadingSource": false,
-    "includeSourceInSymbolFile": false
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
   }
 }

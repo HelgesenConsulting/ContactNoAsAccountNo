@@ -25,11 +25,13 @@ codeunit 73300 "Cust-Init No. from Cont CNTHLG"
         MarketingSetup: Record "Marketing Setup";
 
     begin
+        SalesSetup.SetLoadFields("Customer Nos.");
         if not SalesSetup.Get() then
             exit(false);
         if SalesSetup."Customer Nos." = '' then
             exit(false);
 
+        MarketingSetup.SetLoadFields("Contact Nos.");
         if not MarketingSetup.Get() then
             exit(false);
         if MarketingSetup."Contact Nos." = '' then
