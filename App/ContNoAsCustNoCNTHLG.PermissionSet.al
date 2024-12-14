@@ -1,4 +1,10 @@
-namespace CustInitNoFromContact;
+/// <summary>
+/// Permission Set.
+/// </summary>
+namespace HelgesenConsulting.Account.Permissions;
+
+using HelgesenConsulting.Account.Customer;
+using HelgesenConsulting.Account.Vendor;
 
 permissionset 73300 "ContNoAsCustNoCNTHLG"
 {

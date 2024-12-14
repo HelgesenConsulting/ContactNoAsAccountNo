@@ -1,3 +1,17 @@
+/// <summary>
+/// Subscriber Codeunit that sets the `Vendor."No."` to the `Contact."No."` if the No. Series for `Contacts` and `Vendors` is the same when
+/// using the `Create As Vendor` action on the Contact Card.
+/// Subscriber Codeunit that sets the `Contact."No."` to the `Vendor."No."` if the No. Series for `Contacts` and `Vendors` is the same when
+/// using the `Create Contacts from Vendors` Report.
+/// </summary>
+/// 
+namespace HelgesenConsulting.Account.Vendor;
+
+using Microsoft.CRM.Setup;
+using Microsoft.CRM.Contact;
+using Microsoft.Purchases.Setup;
+using Microsoft.Purchases.Vendor;
+
 codeunit 73301 "Vend-Init No. from Cont CNTHLG"
 {
     //#region Permissions
@@ -7,7 +21,6 @@ codeunit 73301 "Vend-Init No. from Cont CNTHLG"
 
     //#endregion
 
-    //#region EventSubscriber Codeunit Object No. Trigger
     [EventSubscriber(ObjectType::Table, Database::Contact, OnCreateVendorFromTemplateOnBeforeInitVendorNo, '', true, true)]
     local procedure InitVendorNoFromContact(var Vendor: Record Vendor; var Contact: Record Contact; VendorTempl: Record "Vendor Templ."; var IsHandled: Boolean)
     begin
@@ -17,7 +30,15 @@ codeunit 73301 "Vend-Init No. from Cont CNTHLG"
         Vendor."No." := Contact."No.";
         IsHandled := true;
     end;
-    //#endregion EventSubscriber Codeunit Object No. Trigger
+
+    [EventSubscriber(ObjectType::Report, Report::"Create Conts. from Vendors", OnBeforeContactInsert, '', true, true)]
+    local procedure OnBeforeContactInsert(Vendor: Record Vendor; var Contact: Record Contact)
+    begin
+        if not ContactNoSeriesAndVendorNoSeriesIsTheSame() then
+            exit;
+
+        Contact."No." := Vendor."No.";
+    end;
 
     local procedure ContactNoSeriesAndVendorNoSeriesIsTheSame(): Boolean
     var
