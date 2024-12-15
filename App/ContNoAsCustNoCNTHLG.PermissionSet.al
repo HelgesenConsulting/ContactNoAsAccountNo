@@ -5,6 +5,7 @@ namespace HelgesenConsulting.Account.Permissions;
 
 using HelgesenConsulting.Account.Customer;
 using HelgesenConsulting.Account.Vendor;
+using HelgesenConsulting.Account.Bank;
 
 permissionset 73300 "ContNoAsCustNoCNTHLG"
 {
@@ -12,5 +13,6 @@ permissionset 73300 "ContNoAsCustNoCNTHLG"
     Assignable = true;
     Permissions =
         codeunit "Cust-Init No. from Cont CNTHLG" = X,
-        codeunit "Vend-Init No. from Cont CNTHLG" = X;
+        codeunit "Vend-Init No. from Cont CNTHLG" = X,
+        codeunit "Bank-Init No. from Cont CNTHLG" = X;
 }
