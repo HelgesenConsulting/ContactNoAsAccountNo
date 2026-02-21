@@ -1,0 +1,38 @@
+{
+  "id": "b5e74f3c-2d01-49c8-a6f3-9e182b7c05a1",
+  "name": "Contact No. as Account No. Test",
+  "publisher": "Helgesen Consulting, Inc.",
+  "version": "1.0.0.0",
+  "brief": "Tests for the Contact No. as Account No. extension",
+  "description": "",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [
+    {
+      "id": "37e796a5-9fc4-489c-8fca-1695590dc63b",
+      "publisher": "Helgesen Consulting, Inc.",
+      "name": "Contact No. as Account No.",
+      "version": "1.1.0.0"
+    }
+  ],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "26.0.0.0",
+  "idRanges": [
+    {
+      "from": 73310,
+      "to": 73319
+    }
+  ],
+  "features": [
+    "NoImplicitWith"
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  }
+}

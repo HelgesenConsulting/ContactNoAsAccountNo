@@ -2,7 +2,7 @@
   "id": "37e796a5-9fc4-489c-8fca-1695590dc63b",
   "name": "Contact No. as Account No.",
   "publisher": "Helgesen Consulting, Inc.",
-  "version": "1.1.0.0",
+  "version": "1.1.1.0",
   "brief": "Keep the Contact `No.` as the (Account) `No.` for Customer and Vendors",
   "description": "",
   "privacyStatement": "",
@@ -13,7 +13,7 @@
   "dependencies": [],
   "screenshots": [],
   "platform": "1.0.0.0",
-  "application": "25.0.0.0",
+  "application": "26.0.0.0",
   "idRanges": [
     {
       "from": 73300,

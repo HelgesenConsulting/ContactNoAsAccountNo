@@ -8,6 +8,10 @@
 			"path": "App"
 		},
 		{
+			"name": "TEST: Contact No. as Account No.",
+			"path": "TestApp"
+		},
+		{
 			"path": ".AL-Go"
 		}
 	],
@@ -23,7 +27,7 @@
 		"al.codeAnalyzers": [
 			"${CodeCop}",
 			"${UICop}",
-			"${PerTenantExtensionCop}",
+			"${AppSourceCop}",
 			"${analyzerFolder}BusinessCentral.LinterCop.dll"
 		],
 		"al.enableCodeAnalysis": true,
@@ -89,3 +93,4 @@
 			}
 		],
 	}
+}

@@ -1,7 +1,7 @@
 {
   "country": "us",
-  "appFolders": [],
-  "testFolders": [],
+  "appFolders": ["App"],
+  "testFolders": ["TestApp"],
   "bcptTestFolders": [],
   "repoVersion": "1.1"
 }
