@@ -21,6 +21,7 @@ codeunit 73312 "Vend From Cont Test CNTHLG"
         LibraryMarketing: Codeunit "Library - Marketing";
 
     [Test]
+    [HandlerFunctions('MessageHandler')]
     procedure DifferentNoSeries_VendorNoIsDifferentFromContactNo()
     var
         Contact: Record Contact;
@@ -48,6 +49,7 @@ codeunit 73312 "Vend From Cont Test CNTHLG"
     end;
 
     [Test]
+    [HandlerFunctions('MessageHandler')]
     procedure SameNoSeries_VendorNoEqualsContactNo()
     var
         Contact: Record Contact;
@@ -110,5 +112,13 @@ codeunit 73312 "Vend From Cont Test CNTHLG"
     begin
         VendorTempl.FindFirst();
         exit(VendorTempl.Code);
+    end;
+
+    // Handlers
+
+    [MessageHandler]
+    procedure MessageHandler(Message: Text)
+    begin
+
     end;
 }

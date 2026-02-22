@@ -22,6 +22,7 @@ codeunit 73311 "Cust From Cont Test CNTHLG"
         LibraryMarketing: Codeunit "Library - Marketing";
 
     [Test]
+    [HandlerFunctions('MessageHandler')]
     procedure DifferentNoSeries_CustomerNoIsDifferentFromContactNo()
     var
         Contact: Record Contact;
@@ -49,6 +50,7 @@ codeunit 73311 "Cust From Cont Test CNTHLG"
     end;
 
     [Test]
+    [HandlerFunctions('MessageHandler')]
     procedure SameNoSeries_CustomerNoEqualsContactNo()
     var
         Contact: Record Contact;
@@ -110,5 +112,13 @@ codeunit 73311 "Cust From Cont Test CNTHLG"
     begin
         CustomerTempl.FindFirst();
         exit(CustomerTempl.Code);
+    end;
+
+    // Handlers
+
+    [MessageHandler]
+    procedure MessageHandler(Message: Text)
+    begin
+
     end;
 }
