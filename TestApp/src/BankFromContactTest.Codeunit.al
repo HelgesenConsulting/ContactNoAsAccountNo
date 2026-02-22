@@ -9,12 +9,17 @@ using Microsoft.CRM.Contact;
 using Microsoft.CRM.Setup;
 using Microsoft.Sales.Customer;
 using Microsoft.Sales.Setup;
-using Microsoft.Foundation.NoSeries;
+using HelgesenConsulting.Account.Common.Library;
 
-codeunit 73310 "Cust-Init No. from Cont Test CNTHLG"
+
+codeunit 73311 "Cust From Cont Test CNTHLG"
 {
     Subtype = Test;
     TestPermissions = Disabled;
+
+    var
+        Assert: Codeunit Assert;
+        LibraryMarketing: Codeunit "Library - Marketing";
 
     [Test]
     procedure DifferentNoSeries_CustomerNoIsDifferentFromContactNo()
@@ -22,6 +27,8 @@ codeunit 73310 "Cust-Init No. from Cont Test CNTHLG"
         Contact: Record Contact;
         Customer: Record Customer;
         CustomerNo: Code[20];
+        ContactNoAndCustomerNoShouldBeDifferentLbl: Label 'Customer No. should not match the Contact No.';
+
     begin
         // [SCENARIO] When "Contact Nos." in Marketing Setup and "Customer Nos." in
         //            Sales & Receivables Setup use different No. Series, creating a
@@ -34,14 +41,11 @@ codeunit 73310 "Cust-Init No. from Cont Test CNTHLG"
         CreateContact(Contact);
 
         // [WHEN] A new Customer is created from the Contact
-        CustomerNo := Contact.CreateCustomerFromTemplate(GetCustomerTemplate());
+        CustomerNo := Contact.CreateCustomerFromTemplate(GetCustomerTemplateCode());
         Customer.Get(CustomerNo);
 
         // [THEN] The Customer "No." is different from the Contact "No."
-        if Contact."No." = Customer."No." then
-            Error(
-                'Customer No. should differ from Contact No. (%1) when using different No. Series, but they were the same.',
-                Contact."No.");
+        Assert.AreNotEqual(Contact."No.", Customer."No.", ContactNoAndCustomerNoShouldBeDifferentLbl);
     end;
 
     [Test]
@@ -51,6 +55,7 @@ codeunit 73310 "Cust-Init No. from Cont Test CNTHLG"
         Customer: Record Customer;
         CustomerNo: Code[20];
         SharedNoSeriesCode: Code[20];
+        ContactNoAndCustomerNoShouldBeTheSameLbl: Label 'Customer No. should be equal to the Contact No.';
     begin
         // [SCENARIO] When "Contact Nos." in Marketing Setup and "Customer Nos." in
         //            Sales & Receivables Setup use the same No. Series, creating a
@@ -64,14 +69,11 @@ codeunit 73310 "Cust-Init No. from Cont Test CNTHLG"
         CreateContact(Contact);
 
         // [WHEN] A new Customer is created from the Contact
-        CustomerNo := Contact.CreateCustomerFromTemplate(GetCustomerTemplate());
+        CustomerNo := Contact.CreateCustomerFromTemplate(GetCustomerTemplateCode());
         Customer.Get(CustomerNo);
 
         // [THEN] The Customer "No." equals the Contact "No."
-        if Contact."No." <> Customer."No." then
-            Error(
-                'Customer No. (%1) should equal Contact No. (%2) when using the same No. Series.',
-                Customer."No.", Contact."No.");
+        Assert.AreEqual(Contact."No.", Customer."No.", ContactNoAndCustomerNoShouldBeTheSameLbl);
     end;
 
     // Helpers
@@ -83,57 +85,30 @@ codeunit 73310 "Cust-Init No. from Cont Test CNTHLG"
     begin
         MarketingSetup.Get();
         MarketingSetup."Contact Nos." := ContactNoSeriesCode;
-        MarketingSetup.Modify();
+        MarketingSetup.Modify(false);
 
         SalesSetup.Get();
         SalesSetup."Customer Nos." := CustomerNoSeriesCode;
-        SalesSetup.Modify();
+        SalesSetup.Modify(false);
     end;
 
     local procedure CreateNoSeries(NoSeriesCode: Code[20]): Code[20]
     var
-        NoSeries: Record "No. Series";
-        NoSeriesLine: Record "No. Series Line";
+        LibraryAccountNo: Codeunit "Library - Account No. CNTHLG";
     begin
-        if NoSeries.Get(NoSeriesCode) then begin
-            NoSeriesLine.SetRange("Series Code", NoSeriesCode);
-            NoSeriesLine.DeleteAll();
-            NoSeries.Delete();
-        end;
-
-        NoSeries.Init();
-        NoSeries.Code := NoSeriesCode;
-        NoSeries.Description := 'Test No. Series ' + NoSeriesCode;
-        NoSeries."Default Nos." := true;
-        NoSeries."Manual Nos." := true;
-        NoSeries.Insert();
-
-        NoSeriesLine.Init();
-        NoSeriesLine."Series Code" := NoSeriesCode;
-        NoSeriesLine."Line No." := 10000;
-        NoSeriesLine."Starting No." := CopyStr(NoSeriesCode + '-0001', 1, MaxStrLen(NoSeriesLine."Starting No."));
-        NoSeriesLine."Ending No." := CopyStr(NoSeriesCode + '-9999', 1, MaxStrLen(NoSeriesLine."Ending No."));
-        NoSeriesLine."Increment-by No." := 1;
-        NoSeriesLine.Insert();
-
-        exit(NoSeriesCode);
+        exit(LibraryAccountNo.CreateNoSeries(NoSeriesCode));
     end;
 
     local procedure CreateContact(var Contact: Record Contact)
     begin
-        Contact.Init();
-        Contact.Type := Contact.Type::Company;
-        Contact.Name := 'Test Company A/S';
-        Contact.Address := '1 Test Street';
-        Contact.City := 'Testville';
-        Contact.Insert(true);
+        LibraryMarketing.CreateCompanyContact(Contact);
     end;
 
-    local procedure GetCustomerTemplate(): Record "Customer Templ."
+    local procedure GetCustomerTemplateCode(): Code[20]
     var
         CustomerTempl: Record "Customer Templ.";
     begin
         CustomerTempl.FindFirst();
-        exit(CustomerTempl);
+        exit(CustomerTempl.Code);
     end;
 }
